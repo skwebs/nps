@@ -1,11 +1,12 @@
 import React from "react";
 import UploadForm from "../components/UploadForm";
+import MarksheetComponent from "../components/MarksheetComponent";
 
 const Home = () => {
   return (
-    <div>
-      <UploadForm />
-    </div>
+    <>
+      <MarksheetComponent />
+    </>
   );
 };
 

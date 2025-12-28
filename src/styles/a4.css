@@ -1,0 +1,16 @@
+* {
+  font-family: Nunito, Roboto, Helvetica, Georgia, Arial, sans-serif,
+    Comic Sans MS, Calibri;
+}
+@page {
+  size: A4;
+}
+.main-content {
+  /* background: url("./ama-128x128-0.15.webp") center/60px 60px round; */
+  background: url("https://anshumemorial.in/2024/images/static/ama-128x128-0.15.webp")
+    center/60px 60px round;
+}
+
+/* tbody tr th:first-child {
+  text-align: left;
+} */
