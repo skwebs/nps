@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import * as XLSX from "xlsx";
-import { Marksheet } from "./Marksheet";
+import Marksheet from "./Marksheet";
 
 export default function ExcelUpload() {
   const [students, setStudents] = useState([]);
@@ -11,27 +11,31 @@ export default function ExcelUpload() {
 
     const reader = new FileReader();
 
-    reader.onload = (evt) => {
-      const data = evt.target.result;
-      const workbook = XLSX.read(data, { type: "binary" });
+    reader.onload = (event) => {
+      const arrayBuffer = event.target.result;
 
-      // Read first sheet
+      // Convert ArrayBuffer → Uint8Array
+      const data = new Uint8Array(arrayBuffer);
+
+      // Read workbook
+      const workbook = XLSX.read(data, { type: "array" });
+
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
 
-      // Convert to JSON
-      const jsonData = XLSX.utils.sheet_to_json(worksheet);
+      const jsonData = XLSX.utils.sheet_to_json(worksheet, {
+        defval: "", // avoid undefined cells
+      });
 
       setStudents(jsonData);
     };
 
-    reader.readAsBinaryString(file);
+    reader.readAsArrayBuffer(file); // ✅ modern & safe
   };
 
   return (
     <div>
       <input type="file" accept=".xlsx,.xls" onChange={handleFile} />
-
       <Marksheet students={students} />
     </div>
   );
