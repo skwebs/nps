@@ -10,7 +10,7 @@ export default function NavBar() {
         <h2 className="text-lg font-bold md:flex hidden text-white">
           NATIONAL PUBLIC SCHOOL
         </h2>
-        <h2 className="text-lg font-bold md:hidden text-blue-500">NPS</h2>
+        <h2 className="text-lg font-bold md:hidden text-white">NPS</h2>
 
         <nav className="flex gap-6">
           <NavLink to="/" className={linkClass}>
