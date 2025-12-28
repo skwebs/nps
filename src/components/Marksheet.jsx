@@ -1,76 +1,84 @@
-function calculateTotal(student) {
-  const subjects = ["Maths", "Science", "English"];
-  return subjects.reduce((sum, sub) => sum + Number(student[sub] || 0), 0);
-}
+import { downloadPDF } from "../utils/pdfUtils";
 
-function calculateGrade(total) {
-  if (total >= 270) return "A+";
-  if (total >= 240) return "A";
-  if (total >= 200) return "B";
-  return "C";
-}
-
-export function Marksheet({ students }) {
+export default function Marksheet({ students }) {
   if (!students.length) return null;
 
   return (
-    <div style={{ marginTop: 20 }}>
+    <div>
       {students.map((s, index) => {
-        const total = calculateTotal(s);
-        const grade = calculateGrade(total);
+        const total =
+          Number(s.Maths) +
+          Number(s.Science) +
+          Number(s.English) +
+          Number(s.Hindi) +
+          Number(s["Social Science"]);
 
         return (
-          <div
-            key={index}
-            style={{
-              border: "1px solid #ccc",
-              padding: 16,
-              marginBottom: 20,
-              borderRadius: 8,
-              maxWidth: 500,
-            }}
-          >
-            <h3>Marksheet</h3>
+          <div key={index}>
+            {/* MARKSHEET CONTENT */}
+            <div
+              id={`marksheet-${index}`}
+              style={{
+                width: 750,
+                padding: 20,
+                border: "1px solid #000",
+                marginBottom: 10,
+                background: "#fff",
+              }}
+            >
+              <h2 style={{ textAlign: "center" }}>ABC Public School</h2>
+              <p style={{ textAlign: "center" }}>Annual Examination 2024–25</p>
 
-            <p>
-              <strong>Name:</strong> {s.Name}
-            </p>
-            <p>
-              <strong>Roll:</strong> {s.Roll}
-            </p>
-            <p>
-              <strong>Class:</strong> {s.Class}
-            </p>
+              <p>
+                <strong>Name:</strong> {s.Name}
+              </p>
+              <p>
+                <strong>Roll:</strong> {s.Roll}
+              </p>
+              <p>
+                <strong>Class:</strong> {s.Class} {s.Section}
+              </p>
 
-            <table width="100%" border="1" cellPadding="6">
-              <thead>
-                <tr>
-                  <th>Subject</th>
-                  <th>Marks</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Maths</td>
-                  <td>{s.Maths}</td>
-                </tr>
-                <tr>
-                  <td>Science</td>
-                  <td>{s.Science}</td>
-                </tr>
-                <tr>
-                  <td>English</td>
-                  <td>{s.English}</td>
-                </tr>
-              </tbody>
-            </table>
+              <table width="100%" border="1" cellPadding="6">
+                <tbody>
+                  <tr>
+                    <td>Maths</td>
+                    <td>{s.Maths}</td>
+                  </tr>
+                  <tr>
+                    <td>Science</td>
+                    <td>{s.Science}</td>
+                  </tr>
+                  <tr>
+                    <td>English</td>
+                    <td>{s.English}</td>
+                  </tr>
+                  <tr>
+                    <td>Hindi</td>
+                    <td>{s.Hindi}</td>
+                  </tr>
+                  <tr>
+                    <td>Social Science</td>
+                    <td>{s["Social Science"]}</td>
+                  </tr>
+                </tbody>
+              </table>
 
-            <p>
-              <strong>Total:</strong> {total}
-            </p>
-            <p>
-              <strong>Grade:</strong> {grade}
-            </p>
+              <p>
+                <strong>Total:</strong> {total}
+              </p>
+            </div>
+
+            {/* DOWNLOAD BUTTON */}
+            <button
+              onClick={() =>
+                downloadPDF(`marksheet-${index}`, `${s.Name}_Marksheet.pdf`)
+              }
+            >
+              Download PDF
+            </button>
+
+            <hr />
           </div>
         );
       })}
