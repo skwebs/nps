@@ -2,11 +2,10 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import App from "./App.jsx";
-import { BrowserRouter, Route, Routes } from "react-router";
-import NotFound from "./pages/NotFound.jsx";
-import RootLayout from "./layouts/RootLayout.jsx";
-import Home from "./pages/Home.jsx";
-import About from "./pages/About.jsx";
+import { BrowserRouter } from "react-router";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
